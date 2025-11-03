@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String
+  password  String
+  verificationToken String?  // Added verification token field
+  emailVerified Boolean  @default(false)
+  otp            String?    // optional
+  otpExpires     DateTime?  // optional expiry time
+  createdAt DateTime @default(now())
+}
+
+/// Stores OTPs for verifying an email during signup before creating a User
+model EmailVerification {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  otp         String
+  otpExpires  DateTime
+  verified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
