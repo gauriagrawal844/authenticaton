@@ -14,7 +14,7 @@ export async function POST(req) {
     data: { verificationToken: token },
   });
 
-  const link = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password?token=${token}`;
+  const link = `${process.env.NEXT_PUBLIC_BASE_URL}/resetPassword?token=${token}`;
   await sendEmail(email, "Reset your password", `<a href="${link}">Click to reset password</a>`);
 
   return Response.json({ message: "Password reset link sent" }, { status: 200 });

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function CreateProfilePage() {
@@ -7,6 +7,13 @@ export default function CreateProfilePage() {
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    if (!token) {
+      router.replace(`/login?next=${encodeURIComponent("/createProfile")}`);
+    }
+  }, [router]);
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -36,7 +43,7 @@ export default function CreateProfilePage() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-green-100 via-white to-green-50">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-50">
       <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
         <h1 className="text-2xl font-bold text-center mb-6">Create Your Profile</h1>
         <form onSubmit={onSubmit}>

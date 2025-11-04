@@ -15,7 +15,7 @@ export default function ForgotPasswordPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/forgot-password", {
+      const res = await fetch("/api/forgotPassword", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -31,7 +31,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-yellow-100 via-white to-yellow-50">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-50">
       <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8 text-center">
         <h1 className="text-2xl font-bold mb-6">Forgot Password</h1>
         <form onSubmit={onSubmit}>

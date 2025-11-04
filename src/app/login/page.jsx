@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -8,6 +8,7 @@ export default function LoginPage() {
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -24,8 +25,10 @@ export default function LoginPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
 
-      // ✅ redirect user to verify otp page
-      router.push(`verifyOTP?email=${encodeURIComponent(email)}`);
+      // ✅ redirect user to verify otp page, preserve next param if present
+      const next = searchParams.get("next");
+      const nextParam = next ? `&next=${encodeURIComponent(next)}` : "";
+      router.push(`verifyOTP?email=${encodeURIComponent(email)}${nextParam}`);
     } catch (e) {
       setErr(e.message);
     } finally {
@@ -54,6 +57,9 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <a href="/forgotPassword" className="text-sm text-blue-600 hover:underline block text-right">
+            Forgot Password?
+          </a>
           {err && <p className="text-red-500 text-sm">{err}</p>}
           <button
             type="submit"
@@ -62,6 +68,12 @@ export default function LoginPage() {
           >
             {loading ? "Sending OTP..." : "Login"}
           </button>
+          <p className="text-sm text-center mt-4">
+          Don't have an account?{" "}
+          <a href="/signup" className="text-blue-600 hover:underline">
+            Sign Up
+          </a>
+        </p>
         </form>
       </div>
     </div>

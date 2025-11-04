@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 export default function VerifyOtpPage() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
+  const next = searchParams.get("next");
   const [otp, setOtp] = useState("");
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,7 +28,8 @@ export default function VerifyOtpPage() {
       if (!res.ok) throw new Error(data.error || "Verification failed");
 
       localStorage.setItem("token", data.token);
-      router.push("/createProfile");
+      const dest = next && next.startsWith("/") ? next : "/createProfile";
+      router.push(dest);
     } catch (e) {
       setErr(e.message);
     } finally {
