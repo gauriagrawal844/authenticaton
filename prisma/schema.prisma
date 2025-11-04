@@ -18,6 +18,7 @@ model User {
   otp            String?    // optional
   otpExpires     DateTime?  // optional expiry time
   createdAt DateTime @default(now())
+  profile   Profile?
 }
 
 /// Stores OTPs for verifying an email during signup before creating a User
@@ -28,4 +29,28 @@ model EmailVerification {
   otpExpires  DateTime
   verified    Boolean  @default(false)
   createdAt   DateTime @default(now())
+}
+
+model Profile {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  firstName      String?
+  lastName       String?
+  email          String?
+  dob            DateTime?
+  address        String?
+  location       String?
+  companyName    String?
+  companyDetails String?
+  profession     String?
+  education      String?
+  skills         String?
+  hobbies        String?
+  website        String?
+  bio            String?
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

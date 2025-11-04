@@ -11,7 +11,7 @@ input, textarea {
   @apply border border-gray-300 rounded-md p-2 w-full;
 }
 button {
-  @apply bg-blue-600 text-white rounded-md px-4 py-2 mt-3 hover:bg-blue-700 transition;
+  @apply bg-blue-600 text-white rounded-md px-4 py-2  hover:bg-blue-700 transition;
 }
 form {
   @apply space-y-4;

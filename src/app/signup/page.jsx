@@ -106,7 +106,7 @@ export default function SignupPage() {
             <label className="block font-medium mb-1">Email</label>
             <div className="flex gap-2">
               <input name="email" type="email" value={form.email} onChange={onChange} className="flex-1" />
-              <button type="button" onClick={sendSignupOtp} disabled={emailVerified} className="shrink-0">
+              <button type="button" onClick={sendSignupOtp} disabled={emailVerified} className="shrink-0 mt-0">
                 {emailVerified ? "Verified" : "Verify Email"}
               </button>
             </div>
